@@ -44,7 +44,6 @@ require("catppuccin").setup {
 			DiagnosticVirtualTextInfo = { bg = colors.none },
 			DiagnosticVirtualTextWarn = { bg = colors.none },
 			DiagnosticVirtualTextError = { bg = colors.none },
-			GitSignsUntracked = { fg = colors.mauve },
 		}
 	end,
 }
