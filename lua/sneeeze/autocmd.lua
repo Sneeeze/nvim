@@ -16,7 +16,7 @@ local api = vim.api
 local SpellGroup = api.nvim_create_augroup("Spell", { clear = true })
 api.nvim_create_autocmd("FileType", {
 	group = SpellGroup,
-	pattern = { "markdown", "text" },
+	pattern = { "markdown", "text", "gitcommit" },
 	command = "setlocal spell!",
 })
 
