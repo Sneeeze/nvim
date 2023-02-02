@@ -1,11 +1,11 @@
 require("gitsigns").setup {
 	signs = {
-		add = { text = "▎" },
-		change = { text = "▎" },
-		delete = { text = "▎" },
-		changedelete = { text = "▎" },
-		topdelete = { text = "契" },
-		untracked = { text = "▎" },
+		add = { text = "+" },
+		untracked = { text = "+" },
+		delete = { text = "▁" },
+		topdelete = { text = "▶" },
+		change = { text = "~" },
+		changedelete = { text = "~" },
 	},
 
 	current_line_blame = true,
