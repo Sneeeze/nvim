@@ -1,5 +1,4 @@
 require "sneeeze.options"
-require "sneeeze.lazy"
 require "sneeeze.mappings"
-require "sneeeze.lsp"
+require "sneeeze.lazy"
 require "sneeeze.autocmd"

@@ -3,15 +3,15 @@ local api = vim.api
 -- NOTE: if no pattern is set, pattern will be set to "*"
 
 -- FIXME
--- local YankGroup = api.nvim_create_augroup("YankHighlight", { clear = true })
--- api.nvim_create_autocmd("TextYankPost", {
--- 	group = YankGroup,
--- 	callback = function()
--- 		vim.highlight.on_yank {
--- 			higroup = "Substitute",
--- 		}
--- 	end,
--- })
+local YankGroup = api.nvim_create_augroup("YankHighlight", { clear = true })
+api.nvim_create_autocmd("TextYankPost", {
+	group = YankGroup,
+	callback = function()
+		vim.highlight.on_yank {
+			higroup = "Substitute",
+		}
+	end,
+})
 
 local SpellGroup = api.nvim_create_augroup("Spell", { clear = true })
 api.nvim_create_autocmd("FileType", {
