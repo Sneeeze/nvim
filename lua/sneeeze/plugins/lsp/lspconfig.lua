@@ -11,11 +11,32 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+
 			{
 				"hrsh7th/cmp-nvim-lsp",
 				cond = function()
 					return require("lazy.core.config").plugins["nvim-cmp"] ~= nil
 				end,
+			},
+
+			{
+				"lvimuser/lsp-inlayhints.nvim",
+
+				opts = {
+					inlay_hints = {
+						highlight = "Whitespace",
+						labels_separator = "",
+
+						parameter_hints = {
+							prefix = " <- ",
+						},
+
+						type_hints = {
+							prefix = " => ",
+							remove_colon_start = true,
+						},
+					},
+				},
 			},
 		},
 
@@ -207,9 +228,8 @@ return {
 				end
 
 				config.on_attach = function(client, buffer)
-					-- FIXME:  some lsps not showing hints until you edit something
 					if config.hints == true then
-						require("inlay-hints").on_attach(client, buffer)
+						require("lsp-inlayhints").on_attach(client, buffer)
 					end
 
 					if config.prefer_nulls == true then
