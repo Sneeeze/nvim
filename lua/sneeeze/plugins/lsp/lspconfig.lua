@@ -11,6 +11,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			"nvim-telescope/telescope.nvim",
 
 			{
 				"hrsh7th/cmp-nvim-lsp",
