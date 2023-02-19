@@ -53,6 +53,8 @@ return {
 						DiagnosticVirtualTextInfo = { bg = colors.none },
 						DiagnosticVirtualTextWarn = { bg = colors.none },
 						DiagnosticVirtualTextError = { bg = colors.none },
+						TabLine = { fg = colors.overlay1, bg = colors.mantle },
+						TabLineSel = { fg = colors.text, bg = colors.surface0 },
 					}
 				end,
 			}
@@ -150,6 +152,22 @@ return {
 		config = true,
 	},
 
-	"mkitt/tabline.vim",
+	{
+		"crispgm/nvim-tabline",
+		event = "VimEnter",
+
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+
+		config = function()
+			require("tabline").setup {
+				show_icon = true,
+			}
+
+			vim.opt.showtabline = 1
+		end,
+	},
+
 	"stevearc/dressing.nvim",
 }
