@@ -146,6 +146,16 @@ return {
 					end,
 				},
 
+				window = {
+					completion = cmp.config.window.bordered {
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+					},
+
+					documentation = cmp.config.window.bordered {
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+					},
+				},
+
 				mapping = cmp.mapping.preset.insert {
 					["<C-p>"] = cmp.mapping.select_prev_item(),
 					["<C-n>"] = cmp.mapping.select_next_item(),
