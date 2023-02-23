@@ -171,9 +171,9 @@ return {
 					prefer_nulls = true,
 
 					settings = {
-						rust_analyzer = {
-							cargo = {
-								loadOutDirsFromCheck = true,
+						["rust-analyzer"] = {
+							check = {
+								command = "clippy",
 							},
 						},
 					},
