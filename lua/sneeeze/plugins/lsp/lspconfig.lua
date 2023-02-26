@@ -220,7 +220,7 @@ return {
 			end
 
 			vim.tbl_deep_extend("force", capabilities, default_capabilities)
-			capabilities.textDocument.completion.completionItem.snippetSupport = false
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			for server, config in pairs(servers) do
 				local custom_on_attach
