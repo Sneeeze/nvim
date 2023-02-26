@@ -4,6 +4,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 
 		dependencies = {
+			"nvim-lua/plenary.nvim",
 			"williamboman/mason.nvim",
 		},
 
