@@ -12,7 +12,7 @@ return {
 	-- Discord presence
 	{
 		"andweeb/presence.nvim",
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 
 		config = function()
 			require("presence"):setup {
