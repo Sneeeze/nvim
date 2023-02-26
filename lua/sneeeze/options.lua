@@ -66,7 +66,7 @@ vim.opt.fillchars:append {
 	horizup = "┻",
 	horizdown = "┳",
 	vert = "┃",
-	vertleft = "┨",
+	vertleft = "┫",
 	vertright = "┣",
 	verthoriz = "╋",
 }
