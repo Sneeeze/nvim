@@ -63,6 +63,8 @@ return {
 
 	{
 		"tpope/vim-eunuch",
+		event = { "BufReadPre", "BufNewFile" },
+
 		keys = {
 			{
 				"<leader>r",
