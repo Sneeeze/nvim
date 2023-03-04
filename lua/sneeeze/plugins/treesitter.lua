@@ -18,12 +18,9 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 
-				autopairs = {
-					enable = true,
-				},
-
 				context_commentstring = {
 					enable = true,
+					enable_autocmd = false,
 				},
 			}
 		end,
