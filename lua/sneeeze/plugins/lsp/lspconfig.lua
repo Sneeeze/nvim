@@ -90,7 +90,6 @@ return {
 			local servers = {
 				lua_ls = {
 					hints = true,
-					prefer_nulls = true,
 
 					settings = {
 						Lua = {
@@ -168,7 +167,6 @@ return {
 
 				rust_analyzer = {
 					hints = true,
-					prefer_nulls = true,
 
 					settings = {
 						["rust-analyzer"] = {
@@ -184,6 +182,53 @@ return {
 				tsserver = {},
 				jsonls = {},
 			}
+
+			local format = function()
+				local buffer = vim.api.nvim_get_current_buf()
+				local has_null_ls = #require("null-ls.sources").get_available(
+					vim.bo[buffer].filetype,
+					"NULL_LS_FORMATTING"
+				) > 0
+
+				vim.lsp.buf.format {
+					bufnr = buffer,
+					filter = function(client)
+						if not has_null_ls then
+							return client.name ~= "null-ls"
+						end
+
+						return client.name == "null-ls"
+					end,
+				}
+			end
+
+			vim.g.format_on_save = true
+			local format_on_save = function(client, buffer)
+				if not client.supports_method "textDocument/formatting" then
+					return
+				end
+
+				vim.keymap.set("n", "<leader>lF", function()
+					if not vim.g.format_on_save then
+						vim.g.format_on_save = true
+						vim.notify "Enabled format on save"
+					else
+						vim.g.format_on_save = not vim.g.format_on_save
+						vim.notify "Disabled format on save"
+					end
+				end, { buffer = buffer, desc = "Toggle format on save" })
+
+				local group = vim.api.nvim_create_augroup("FormatOnSave." .. buffer, {})
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = group,
+					buffer = buffer,
+					callback = function()
+						if vim.g.format_on_save then
+							format()
+						end
+					end,
+				})
+			end
 
 			---@diagnostic disable-next-line: unused-local
 			local function on_attach(client, buffer)
@@ -205,18 +250,8 @@ return {
 
 				map("n", "<leader>cr", vim.lsp.buf.rename, "Rename")
 				map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
-				map("n", "<leader>lf", vim.lsp.buf.format, "Format")
+				map("n", "<leader>lf", format, "Format")
 				map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, "Signature help")
-			end
-
-			local function format_on_save(buffer)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = vim.api.nvim_create_augroup("LspFormat." .. buffer, {}),
-					buffer = buffer,
-					callback = function()
-						vim.lsp.buf.format()
-					end,
-				})
 			end
 
 			vim.tbl_deep_extend("force", capabilities, default_capabilities)
@@ -224,6 +259,7 @@ return {
 
 			for server, config in pairs(servers) do
 				local custom_on_attach
+
 				if config.on_attach then
 					custom_on_attach = config.on_attach
 				end
@@ -233,13 +269,7 @@ return {
 						require("lsp-inlayhints").on_attach(client, buffer)
 					end
 
-					if config.prefer_nulls == true then
-						client.server_capabilities.documentFormattingProvider = false
-					end
-
-					if config.format_on_save ~= false then
-						format_on_save(buffer)
-					end
+					format_on_save(client, buffer)
 
 					if type(custom_on_attach) == "function" then
 						custom_on_attach(client, buffer)
